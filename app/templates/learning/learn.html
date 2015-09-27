@@ -1,0 +1,24 @@
+<head>
+    <script src="{{ url_for('bower.static', filename='jquery/dist/jquery.js') }}"></script>
+</head>
+{% macro render_field(field, placeholder=None) %}
+{% if field.errors %}
+<div>
+{% elif field.flags.error %}
+<div>
+{% else %}
+<div>
+{% endif %}
+    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+</div>
+{% endmacro %}
+<div>
+  <div>
+    <form method="POST" action="." accept-charset="UTF-8" role="form">
+      {{ form.csrf_token }}
+      {{ render_field(form.text)}}
+      <button type="submit" name="submit">Save</button>
+    </form>  
+  </div>
+</div>
